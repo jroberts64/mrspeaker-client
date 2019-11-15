@@ -90,6 +90,9 @@ export default function Notes(props) {
   }
   
   function deleteNote() {
+    if( note.attachment ) {
+      Storage.vault.remove( note.attachment );
+    }
     return API.del("notes", `/notes/${props.match.params.id}`);
   }
   

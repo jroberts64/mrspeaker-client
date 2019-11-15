@@ -79,6 +79,9 @@ export default function Notes(props) {
         content,
         attachment: attachment || note.attachment
       });
+      if( attachment && note.attachment ) {
+        Storage.vault.remove( note.attachment );
+      }
       props.history.push("/");
     } catch (e) {
       alert(e);

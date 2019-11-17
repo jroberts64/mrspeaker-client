@@ -37,7 +37,7 @@ export default function NewDoc(props) {
         ? await s3Upload(file.current)
         : null;
 
-        await createNote({ content, attachment });
+        await createDoc({ content, attachment });
         props.history.push("/");
     } catch (e) {
       alert(e);
@@ -45,9 +45,9 @@ export default function NewDoc(props) {
     }
   }
   
-  function createNote(note) {
+  function createDoc(doc) {
     return API.post("notes", "/notes", {
-      body: note
+      body: doc
     });
   }
 

@@ -5,7 +5,7 @@ import { API } from "aws-amplify";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function Home(props) {
-  const [notes, setDocs] = useState([]);
+  const [docs, setDocs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,8 +15,8 @@ export default function Home(props) {
       }
   
       try {
-        const notes = await loadDocs();
-        setDocs(notes);
+        const docs = await loadDocs();
+        setDocs(docs);
       } catch (e) {
         alert(e);
       }
@@ -31,19 +31,19 @@ export default function Home(props) {
     return API.get("notes", "/notes");
   }
 
-  function renderDocsList(notes) {
-    return [{}].concat(notes).map((note, i) =>
+  function renderDocsList(docs) {
+    return [{}].concat(docs).map((doc, i) =>
       i !== 0 ? (
-        <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
-          <ListGroupItem header={note.content.trim().split("\n")[0]}>
-            {"Created: " + new Date(note.createdAt).toLocaleString()}
+        <LinkContainer key={doc.noteId} to={`/notes/${doc.noteId}`}>
+          <ListGroupItem header={doc.content.trim().split("\n")[0]}>
+            {"Created: " + new Date(doc.createdAt).toLocaleString()}
           </ListGroupItem>
         </LinkContainer>
       ) : (
         <LinkContainer key="new" to="/notes/new">
           <ListGroupItem>
             <h4>
-              <b>{"\uFF0B"}</b> Create a new note
+              <b>{"\uFF0B"}</b> Create a new document
             </h4>
           </ListGroupItem>
         </LinkContainer>
@@ -62,10 +62,10 @@ export default function Home(props) {
 
   function renderDocs() {
     return (
-      <div className="notes">
+      <div className="docs">
         <PageHeader>Your Docs</PageHeader>
         <ListGroup>
-          {!isLoading && renderDocsList(notes)}
+          {!isLoading && renderDocsList(docs)}
         </ListGroup>
       </div>
     );

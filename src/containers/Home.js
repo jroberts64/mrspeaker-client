@@ -55,7 +55,7 @@ export default function Home(props) {
     return (
       <div className="lander">
         <h1>Mr Speaker</h1>
-        <p>A simple note taking app. Loging to view your notes or signup!</p>
+        <p>A simple docunent speaking app. Login to view your documents or signup!</p>
       </div>
     );
   }

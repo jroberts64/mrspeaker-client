@@ -8,27 +8,27 @@ import { s3Upload } from "../libs/awsLib";
 
 export default function Docs(props) {
   const file = useRef(null);
-  const [note, setNote] = useState(null);
+  const [doc, setDoc] = useState(null);
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    function loadNote() {
+    function loadDoc() {
       return API.get("notes", `/notes/${props.match.params.id}`);
     }
 
     async function onLoad() {
       try {
-        const note = await loadNote();
-        const { content, attachment } = note;
+        const doc = await loadDoc();
+        const { content, attachment } = doc;
 
         if (attachment) {
-          note.attachmentURL = await Storage.vault.get(attachment);
+          doc.attachmentURL = await Storage.vault.get(attachment);
         }
 
         setContent(content);
-        setNote(note);
+        setDoc(doc);
       } catch (e) {
         alert(e);
       }
@@ -49,9 +49,9 @@ export default function Docs(props) {
     file.current = event.target.files[0];
   }
   
-  function saveNote(note) {
+  function saveDoc(doc) {
     return API.put("notes", `/notes/${props.match.params.id}`, {
-      body: note
+      body: doc
     });
   }
   
@@ -75,12 +75,12 @@ export default function Docs(props) {
         attachment = await s3Upload(file.current);
       }
   
-      await saveNote({
+      await saveDoc({
         content,
-        attachment: attachment || note.attachment
+        attachment: attachment || doc.attachment
       });
-      if( attachment && note.attachment ) {
-        Storage.vault.remove( note.attachment );
+      if( attachment && doc.attachment ) {
+        Storage.vault.remove( doc.attachment );
       }
       props.history.push("/");
     } catch (e) {
@@ -89,9 +89,9 @@ export default function Docs(props) {
     }
   }
   
-  function deleteNote() {
-    if( note.attachment ) {
-      Storage.vault.remove( note.attachment );
+  function deleteDoc() {
+    if( doc.attachment ) {
+      Storage.vault.remove( doc.attachment );
     }
     return API.del("notes", `/notes/${props.match.params.id}`);
   }
@@ -100,7 +100,7 @@ export default function Docs(props) {
     event.preventDefault();
   
     const confirmed = window.confirm(
-      "Are you sure you want to delete this note?"
+      "Are you sure you want to delete this document?"
     );
   
     if (!confirmed) {
@@ -110,7 +110,7 @@ export default function Docs(props) {
     setIsDeleting(true);
   
     try {
-      await deleteNote();
+      await deleteDoc();
       props.history.push("/");
     } catch (e) {
       alert(e);
@@ -120,7 +120,7 @@ export default function Docs(props) {
   
   return (
     <div className="Docs">
-      {note && (
+      {doc && (
         <form onSubmit={handleSubmit}>
           <FormGroup controlId="content">
             <FormControl
@@ -129,22 +129,22 @@ export default function Docs(props) {
               onChange={e => setContent(e.target.value)}
             />
           </FormGroup>
-          {note.attachment && (
+          {doc.attachment && (
             <FormGroup>
               <ControlLabel>Attachment</ControlLabel>
               <FormControl.Static>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href={note.attachmentURL}
+                  href={doc.attachmentURL}
                 >
-                  {formatFilename(note.attachment)}
+                  {formatFilename(doc.attachment)}
                 </a>
               </FormControl.Static>
             </FormGroup>
           )}
           <FormGroup controlId="file">
-            {!note.attachment && <ControlLabel>Attachment</ControlLabel>}
+            {!doc.attachment && <ControlLabel>Attachment</ControlLabel>}
             <FormControl onChange={handleFileChange} type="file" />
           </FormGroup>
           <LoaderButton

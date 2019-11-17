@@ -5,7 +5,7 @@ import { API } from "aws-amplify";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function Home(props) {
-  const [notes, setNotes] = useState([]);
+  const [notes, setDocs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,8 +15,8 @@ export default function Home(props) {
       }
   
       try {
-        const notes = await loadNotes();
-        setNotes(notes);
+        const notes = await loadDocs();
+        setDocs(notes);
       } catch (e) {
         alert(e);
       }
@@ -27,11 +27,11 @@ export default function Home(props) {
     onLoad();
   }, [props.isAuthenticated]);
   
-  function loadNotes() {
+  function loadDocs() {
     return API.get("notes", "/notes");
   }
 
-  function renderNotesList(notes) {
+  function renderDocsList(notes) {
     return [{}].concat(notes).map((note, i) =>
       i !== 0 ? (
         <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
@@ -60,12 +60,12 @@ export default function Home(props) {
     );
   }
 
-  function renderNotes() {
+  function renderDocs() {
     return (
       <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
+        <PageHeader>Your Docs</PageHeader>
         <ListGroup>
-          {!isLoading && renderNotesList(notes)}
+          {!isLoading && renderDocsList(notes)}
         </ListGroup>
       </div>
     );
@@ -73,7 +73,7 @@ export default function Home(props) {
 
   return (
     <div className="Home">
-      {props.isAuthenticated ? renderNotes() : renderLander()}
+      {props.isAuthenticated ? renderDocs() : renderLander()}
     </div>
   );
 }

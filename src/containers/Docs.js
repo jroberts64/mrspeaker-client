@@ -3,10 +3,10 @@ import { API, Storage } from "aws-amplify";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
-import "./Notes.css";
+import "./Docs.css";
 import { s3Upload } from "../libs/awsLib";
 
-export default function Notes(props) {
+export default function Docs(props) {
   const file = useRef(null);
   const [note, setNote] = useState(null);
   const [content, setContent] = useState("");
@@ -119,7 +119,7 @@ export default function Notes(props) {
   }
   
   return (
-    <div className="Notes">
+    <div className="Docs">
       {note && (
         <form onSubmit={handleSubmit}>
           <FormGroup controlId="content">

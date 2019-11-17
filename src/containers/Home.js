@@ -34,7 +34,7 @@ export default function Home(props) {
   function renderDocsList(docs) {
     return [{}].concat(docs).map((doc, i) =>
       i !== 0 ? (
-        <LinkContainer key={doc.noteId} to={`/notes/${doc.noteId}`}>
+        <LinkContainer key={doc.docId} to={`/notes/${doc.docId}`}>
           <ListGroupItem header={doc.content.trim().split("\n")[0]}>
             {"Created: " + new Date(doc.createdAt).toLocaleString()}
           </ListGroupItem>

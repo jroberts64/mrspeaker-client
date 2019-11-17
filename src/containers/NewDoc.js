@@ -2,11 +2,11 @@ import React, { useRef, useState } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
-import "./NewNote.css";
+import "./NewDoc.css";
 import { API } from "aws-amplify";
 import { s3Upload } from "../libs/awsLib";
 
-export default function NewNote(props) {
+export default function NewDoc(props) {
   const file = useRef(null);
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -52,7 +52,7 @@ export default function NewNote(props) {
   }
 
   return (
-    <div className="NewNote">
+    <div className="NewDoc">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="content">
           <FormControl

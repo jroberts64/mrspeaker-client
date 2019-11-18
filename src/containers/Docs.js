@@ -15,7 +15,7 @@ export default function Docs(props) {
 
   useEffect(() => {
     function loadDoc() {
-      return API.get("notes", `/notes/${props.match.params.id}`);
+      return API.get("speakToMe", `/notes/${props.match.params.id}`);
     }
 
     async function onLoad() {
@@ -50,7 +50,7 @@ export default function Docs(props) {
   }
   
   function saveDoc(doc) {
-    return API.put("notes", `/notes/${props.match.params.id}`, {
+    return API.put("speakToMe", `/notes/${props.match.params.id}`, {
       body: doc
     });
   }
@@ -93,7 +93,7 @@ export default function Docs(props) {
     if( doc.attachment ) {
       Storage.vault.remove( doc.attachment );
     }
-    return API.del("notes", `/notes/${props.match.params.id}`);
+    return API.del("speakToMe", `/notes/${props.match.params.id}`);
   }
   
   async function handleDelete(event) {

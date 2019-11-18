@@ -28,7 +28,7 @@ export default function Home(props) {
   }, [props.isAuthenticated]);
   
   function loadDocs() {
-    return API.get("notes", "/notes");
+    return API.get("speakToMe", "/notes");
   }
 
   function renderDocsList(docs) {

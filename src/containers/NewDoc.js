@@ -46,7 +46,7 @@ export default function NewDoc(props) {
   }
   
   function createDoc(doc) {
-    return API.post("speakToMe", "/notes", {
+    return API.post("speakToMe", "/docs", {
       body: doc
     });
   }

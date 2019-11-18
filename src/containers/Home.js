@@ -28,19 +28,19 @@ export default function Home(props) {
   }, [props.isAuthenticated]);
   
   function loadDocs() {
-    return API.get("speakToMe", "/notes");
+    return API.get("speakToMe", "/docs");
   }
 
   function renderDocsList(docs) {
     return [{}].concat(docs).map((doc, i) =>
       i !== 0 ? (
-        <LinkContainer key={doc.docId} to={`/notes/${doc.docId}`}>
+        <LinkContainer key={doc.docId} to={`/docs/${doc.docId}`}>
           <ListGroupItem header={doc.content.trim().split("\n")[0]}>
             {"Created: " + new Date(doc.createdAt).toLocaleString()}
           </ListGroupItem>
         </LinkContainer>
       ) : (
-        <LinkContainer key="new" to="/notes/new">
+        <LinkContainer key="new" to="/docs/new">
           <ListGroupItem>
             <h4>
               <b>{"\uFF0B"}</b> Create a new document

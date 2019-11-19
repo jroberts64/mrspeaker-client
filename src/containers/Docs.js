@@ -12,11 +12,13 @@ export default function Docs(props) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [player, setPlayer] = useState(null);
 
   useEffect(() => {
     function loadDoc() {
       return API.get("speakToMe", `/docs/${props.match.params.id}`);
     }
+
 
     async function onLoad() {
       try {
@@ -25,6 +27,7 @@ export default function Docs(props) {
 
         if (attachment) {
           doc.attachmentURL = await Storage.vault.get(attachment);
+          setPlayer(new Audio(doc.attachmentURL));
         }
 
         setContent(content);
@@ -36,6 +39,11 @@ export default function Docs(props) {
 
     onLoad();
   }, [props.match.params.id]);
+  
+  window.onbeforeunload = function(){
+    console.log("unload called")
+    player.stopPlaying();
+  }
 
   function validateForm() {
     return content.length > 0;
@@ -118,7 +126,13 @@ export default function Docs(props) {
     }
   }
   
-  return (
+  function playAudio(event) {
+      console.log("play file");
+      console.log(doc.attachmentURL);
+      player.play();
+  }
+
+    return (
     <div className="Docs">
       {doc && (
         <form onSubmit={handleSubmit}>
@@ -139,6 +153,19 @@ export default function Docs(props) {
                   href={doc.attachmentURL}
                 >
                   {formatFilename(doc.attachment)}
+                </a>
+              </FormControl.Static>
+            </FormGroup>
+          )}
+          {doc.attachment && (
+            <FormGroup>
+              <FormControl.Static>
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={playAudio}
+                >
+                  play
                 </a>
               </FormControl.Static>
             </FormGroup>

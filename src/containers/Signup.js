@@ -137,7 +137,7 @@ export default function Signup(props) {
 
   return (
     <div className="Signup">
-      {newUser === null && isUnconfirmedUser == false ? renderForm() : renderConfirmationForm()}
+      {newUser === null && isUnconfirmedUser === false ? renderForm() : renderConfirmationForm()}
     </div>
   );
 }

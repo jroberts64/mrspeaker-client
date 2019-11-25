@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { API, Storage } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, ControlLabel, Label } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import "./Docs.css";
@@ -131,9 +131,10 @@ export default function Docs(props) {
             {doc && (
                 <form onSubmit={handleSubmit}>
                     <FormGroup controlId="content">
+                        <Label>Name</Label>
                         <FormControl
                             value={content}
-                            componentClass="textarea"
+                            componentClass="input"
                             onChange={e => setContent(e.target.value)}
                         />
                     </FormGroup>

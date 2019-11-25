@@ -69,7 +69,7 @@ export default function NewDoc(props) {
                 </FormGroup>
                 <FormGroup controlId="file">
                     <ControlLabel>Attachment</ControlLabel>
-                    <FormControl onChange={handleFileChange} type="file" />
+                    <FormControl onChange={handleFileChange} type="file" accept="text/plain" />
                 </FormGroup>
                 <LoaderButton
                     block

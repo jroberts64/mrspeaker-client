@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
+import { Navbar, Nav, NavItem, Glyphicon } from "react-bootstrap";
 import "./App.css";
 import Routes from "./Routes";
 import { LinkContainer } from "react-router-bootstrap";
@@ -40,7 +40,7 @@ function App(props) {
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Mr Speaker</Link>
+            <Link to="/">Mr Speaker <Glyphicon glyph="bullhorn"/></Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

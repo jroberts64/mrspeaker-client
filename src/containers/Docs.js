@@ -5,6 +5,7 @@ import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import "./Docs.css";
 import { s3Upload } from "../libs/awsLib";
+import { isValidUri, deleteDoc } from "../libs/miscLib.js";
 
 export default function Docs(props) {
     const file = useRef(null);
@@ -12,7 +13,7 @@ export default function Docs(props) {
     const [content, setContent] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
-    const [player, setPlayer] = useState(null);
+    const [myPlayer, setMyPlayer] = useState(null);
 
     useEffect(() => {
         function loadDoc() {
@@ -27,7 +28,10 @@ export default function Docs(props) {
 
                 if (attachment) {
                     doc.audioURL = await Storage.vault.get(audio);
-                    setPlayer(new Audio(doc.audioURL));
+                    console.log(doc.audioURL);
+                    var tmp = new Audio(doc.audioURL);
+                    setMyPlayer(tmp);
+                    console.log(myPlayer);
                 }
 
                 setContent(content);
@@ -97,29 +101,17 @@ export default function Docs(props) {
         }
     }
 
-    function deleteDoc() {
-        if ( doc.attachment ) {
-            Storage.vault.remove( doc.attachment ); 
-            Storage.vault.remove(doc.audio);
-        }
-        return API.del("speakToMe", `/docs/${props.match.params.id}`);
-    }
-
     async function handleDelete(event) {
         event.preventDefault();
 
-        const confirmed = window.confirm(
-            "Are you sure you want to delete this document?"
-        );
+        const confirmed = window.confirm("Are you sure you want to delete this document?");
 
-        if (!confirmed) {
-            return;
-        }
+        if (!confirmed) return;
 
         setIsDeleting(true);
 
         try {
-            await deleteDoc();
+            await deleteDoc(doc);
             props.history.push("/");
         } catch (e) {
             alert(e);
@@ -128,9 +120,12 @@ export default function Docs(props) {
     }
 
     function playAudio(event) {
-        player.play();
+        myPlayer.play();
     }
 
+    function isAudio() {
+        return isValidUri(doc.audioURL);
+    }
     return (
         <div className="Docs">
             {doc && (
@@ -152,21 +147,22 @@ export default function Docs(props) {
                                     href={doc.attachmentURL}
                                 >
                                     {formatFilename(doc.attachment)}
-                                </a>
-                                <space>  </space>
-                                <a
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={playAudio}
-                                >
-                                    <img type="image/png" width="30" height="30" src="/play-button.png"/>
-                                </a>
-                            </FormControl.Static>
+                                </a> 
+                                {isAudio() && (
+                                    <a
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={playAudio}
+                                    >
+                                        <img type="image/png" alt="" width="30" height="30" src="/play-button.png"/>
+                                    </a>
+                                )}
+                                </FormControl.Static>
                         </FormGroup>
                     )}
                     <FormGroup controlId="file">
                         {!doc.attachment && <ControlLabel>Attachment</ControlLabel>}
-                        <FormControl onChange={handleFileChange} type="file" />
+                        <FormControl onChange={handleFileChange} type="file" accept="text/plain"/>
                     </FormGroup>
                     <LoaderButton
                         block
@@ -177,7 +173,7 @@ export default function Docs(props) {
                         disabled={!validateForm()}
                     >
                         Save
-          </LoaderButton>
+                    </LoaderButton>
                     <LoaderButton
                         block
                         bsSize="large"
@@ -186,7 +182,7 @@ export default function Docs(props) {
                         isLoading={isDeleting}
                     >
                         Delete
-          </LoaderButton>
+                    </LoaderButton>
                 </form>
             )}
         </div>

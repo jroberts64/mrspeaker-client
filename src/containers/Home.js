@@ -68,7 +68,8 @@ export default function Home(props) {
 
 
   function editDoc(id) {
-    window.open("/docs/" + id,"_self")
+    props.history.push("/docs/" + id);
+    //window.open("/docs/" + id,"_self")
   }
 //         <LinkContainer key={doc.docId} to={`/docs/${doc.docId}`}>
 //        <LinkContainer key={doc.docId}>

@@ -34,7 +34,7 @@ const prod = {
 };
 
 // Default to dev if not set
-const config = process.env.APP_STAGE === 'prod'
+const config = process.env.REACT_APP_STAGE === 'prod'
   ? prod
   : dev;
 

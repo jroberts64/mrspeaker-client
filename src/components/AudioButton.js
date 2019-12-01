@@ -65,7 +65,7 @@ export function AudioButton({
 
   return (
     <Button className={props.className} disabled={disabled} onClick={() => { playAudio(props.audio) }}>
-      speak
+      <span className="d-none d-lg-block"></span>
             <Glyphicon glyph="play" />
     </Button >
   );

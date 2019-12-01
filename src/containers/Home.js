@@ -58,7 +58,7 @@ export default function Home(props) {
           {"Created: " + new Date(doc.createdAt).toLocaleString()}
           <span className="pull-rightxxx">
             <AudioButton className="tmp" audio={doc.audio} />  <span />
-            <Button className="tmp" onClick={() => { editDoc(doc.docId) }}> edit <Glyphicon glyph="edit" /> </Button > <span />
+            <Button className="tmp" onClick={() => { editDoc(doc.docId) }}> <span className="d-none d-md-block"></span> <Glyphicon glyph="edit" /> </Button > <span />
             <Button className="tmp" bsStyle="danger" onClick={() => { handleDelete(doc) }}><Glyphicon glyph="trash" /> </Button >
           </span>
 

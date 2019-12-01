@@ -4,7 +4,6 @@ export function isValidUri(uri) {
     var request = new XMLHttpRequest();
     request.open('GET', uri, false);
     request.send(); // there will be a 'pause' here until the response to come.
-    console.log(request.status);
     return request.status === 200;
 }
 

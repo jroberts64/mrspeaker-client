@@ -40,7 +40,6 @@ export default function NewDoc(props) {
                 audio = attachment.substr(0, attachment.lastIndexOf(".")) + ".mp3";
             }
             var bucket = config.s3.BUCKET;
-            console.log({ content, attachment, bucket, audio });
             await createDoc({ content, attachment, bucket, audio });
             props.history.push("/");
         } catch (e) {

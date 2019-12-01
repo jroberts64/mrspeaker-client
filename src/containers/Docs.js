@@ -5,7 +5,8 @@ import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import "./Docs.css";
 import { s3Upload } from "../libs/awsLib";
-import { isValidUri, deleteDoc } from "../libs/miscLib.js";
+import { isValidUri, deleteDoc } from "../libs/miscLib";
+import {AudioButton} from "../components/AudioButton";
 
 export default function Docs(props) {
     const file = useRef(null);
@@ -16,10 +17,10 @@ export default function Docs(props) {
     const [myPlayer, setMyPlayer] = useState(null);
 
     useEffect(() => {
+
         function loadDoc() {
             return API.get("speakToMe", "/docs/" + props.match.params.id);
         }
-
 
         async function onLoad() {
             try {
@@ -28,10 +29,10 @@ export default function Docs(props) {
 
                 if (attachment) {
                     doc.audioURL = await Storage.vault.get(audio);
-                    console.log(doc.audioURL);
-                    var tmp = new Audio(doc.audioURL);
-                    setMyPlayer(tmp);
-                    console.log(myPlayer);
+                    if (!myPlayer) {
+                      var tmp = new Audio(doc.audioURL);
+                      setMyPlayer(tmp);
+                    }
                 }
 
                 setContent(content);
@@ -42,7 +43,7 @@ export default function Docs(props) {
         }
 
         onLoad();
-    }, [props.match.params.id]);
+    }, [props.match.params.id, myPlayer]);
 
     function validateForm() {
         return content.length > 0;
@@ -92,7 +93,7 @@ export default function Docs(props) {
             });
             if( attachment && doc.attachment ) {
                 Storage.vault.remove( doc.attachment );
-                Storage.vault.remove(doc.audio);
+                if(doc.audio) Storage.vault.remove(doc.audio);
             }
             props.history.push("/");
         } catch (e) {
@@ -119,10 +120,6 @@ export default function Docs(props) {
         }
     }
 
-    function playAudio(event) {
-        myPlayer.play();
-    }
-
     function isAudio() {
         return isValidUri(doc.audioURL);
     }
@@ -147,16 +144,14 @@ export default function Docs(props) {
                                     rel="noopener noreferrer"
                                     href={doc.attachmentURL}
                                 >
-                                    {formatFilename(doc.attachment)}
+                                    {formatFilename(doc.attachment)} <span /> 
                                 </a> 
                                 {isAudio() && (
-                                    <a
+                                    <AudioButton
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        onClick={playAudio}
-                                    >
-                                        <img type="image/png" alt="" width="30" height="30" src="/play-button.png"/>
-                                    </a>
+                                        audio={doc.audio}
+                                    />
                                 )}
                                 </FormControl.Static>
                         </FormGroup>

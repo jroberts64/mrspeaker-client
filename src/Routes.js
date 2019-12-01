@@ -4,7 +4,7 @@ import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Login from "./containers/Login";
 import AppliedRoute from "./components/AppliedRoute";
-import ResetPassword from "./containers/ResetPassword";
+//import ResetPassword from "./containers/ResetPassword";
 import Signup from "./containers/Signup";
 import NewDoc from "./containers/NewDoc";
 import Docs from "./containers/Docs";

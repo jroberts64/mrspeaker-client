@@ -55,7 +55,7 @@ export default function Home(props) {
     return [{}].concat(docs).map((doc, i) =>
       i !== 0 ? (
         <ListGroupItem key={doc.docId} header={doc.content.trim().split("\n")[0]}>
-          {"Created: " + new Date(doc.createdAt).toLocaleString()}
+          {new Date(doc.createdAt).toLocaleString()}
           <span className="pull-rightxxx">
             <AudioButton className="tmp" audio={doc.audio} />  <span />
             <Button className="tmp" onClick={() => { editDoc(doc.docId) }}> <span className="d-none d-md-block"></span> <Glyphicon glyph="edit" /> </Button > <span />

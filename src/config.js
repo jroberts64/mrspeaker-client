@@ -10,16 +10,16 @@ const dev = {
   },
   cognito: {
     REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_3sKOosx98",
-    APP_CLIENT_ID: "64vf8rpikdp51natnuv2fjof31",
-    IDENTITY_POOL_ID: "us-east-1:0372d745-2711-4d02-9a02-a58ae2b7c147"
+    USER_POOL_ID: "us-east-1_9lsJw3rzu",
+    APP_CLIENT_ID: "3k80sq4uqrqobilv7ilgovh7lo",
+    IDENTITY_POOL_ID: "us-east-1:91ec91fe-6f26-48f7-8dcf-176a3e439766"
   }
 };
 
 const prod = {
   s3: {
     REGION: "us-east-1",
-    BUCKET: "jackrobertscom2-prod"
+    BUCKET: "mrspeaker-prod"
   },
   apiGateway: {
     REGION: "us-east-1",
@@ -27,9 +27,9 @@ const prod = {
   },
   cognito: {
     REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_8GnBpUCkC",
-    APP_CLIENT_ID: "7thnkijjrs70jra07dgo5t12i8",
-    IDENTITY_POOL_ID: "us-east-1:5f449e36-6274-4e23-b430-271811cb5926"
+    USER_POOL_ID: "us-east-1_9lsJw3rzu",
+    APP_CLIENT_ID: "3k80sq4uqrqobilv7ilgovh7lo",
+    IDENTITY_POOL_ID: "us-east-1:91ec91fe-6f26-48f7-8dcf-176a3e439766"
   }
 };
 

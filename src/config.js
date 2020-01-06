@@ -2,7 +2,7 @@ const dev = {
 //  STRIPE_KEY: "YOUR_STRIPE_DEV_PUBLIC_KEY",
   s3: {
     REGION: "us-east-1",
-    BUCKET: "jackrobertscom2"
+    BUCKET: "mrspeaker-dev"
   },
   apiGateway: {
     REGION: "us-east-1",
@@ -19,7 +19,7 @@ const dev = {
 const prod = {
   s3: {
     REGION: "us-east-1",
-    BUCKET: "mrspeaker-prod"
+    BUCKET: "jackrobertscom2"
   },
   apiGateway: {
     REGION: "us-east-1",

@@ -23,7 +23,7 @@ const prod = {
   },
   apiGateway: {
     REGION: "us-east-1",
-    URL: "https://api.jack-roberts.com/prod"
+    URL: "https://bamzqbftnb.execute-api.us-east-1.amazonaws.com/prod"
   },
   cognito: {
     REGION: "us-east-1",
